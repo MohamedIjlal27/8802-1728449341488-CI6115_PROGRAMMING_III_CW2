@@ -21,7 +21,6 @@ public class PizzaShopService {
             String name = scanner.next();
             scanner.nextLine();
 
-
             String crust = null;
             System.out.println("\nChoose Crust:");
             System.out.println("1. Thin");
@@ -54,7 +53,6 @@ public class PizzaShopService {
                 }
             }
 
-
             String cheese = null;
             System.out.println("\nChoose Cheese:");
             System.out.println("1. Mozzarella");
@@ -71,13 +69,11 @@ public class PizzaShopService {
                 }
             }
 
-
             Pizza.Builder builder = new Pizza.Builder()
                     .setName(name)
                     .setCrust(crust)
                     .setSauce(sauce)
                     .setCheese(cheese);
-
 
             System.out.print("\nHow many toppings would you like to add? ");
             int toppingCount = scanner.nextInt();
@@ -93,7 +89,6 @@ public class PizzaShopService {
 
             System.out.println("\nCustom Pizza Created: " + customPizza);
             
-      
             System.out.println("\nWould you like to place an order for this pizza?");
             System.out.println("1. Place Order");
             System.out.println("2. Return to Menu");
@@ -110,7 +105,6 @@ public class PizzaShopService {
     }
 
     private void placeOrderForPizza(Scanner scanner, Pizza pizza) {
-        
         String paymentMethod = null;
         System.out.println("\nChoose Payment Method:");
         System.out.println("1. Cash on Delivery");
@@ -164,7 +158,6 @@ public class PizzaShopService {
                 paymentMethod = "Cash on Delivery";
         }
 
-       
         String deliveryType = null;
         System.out.println("\nChoose Delivery Type:");
         System.out.println("1. Pickup");
@@ -287,7 +280,6 @@ public class PizzaShopService {
         System.out.println("Your Loyalty Points: " + userProfile.getLoyaltyPoints());
     }
 
-
     private void initializePromotions() {
         activePromotions.add(new Promotion("Summer Special", 20.0, true, "SUMMER"));
         activePromotions.add(new Promotion("Winter Warmup", 15.0, false, "WINTER"));
@@ -342,14 +334,12 @@ public class PizzaShopService {
         }
     }
 
-
     public void viewPizzaRatings() {
         System.out.println("\n--- Pizza Ratings ---");
         if (allFeedback.isEmpty()) {
             System.out.println("No ratings yet.");
             return;
         }
-
 
         Map<String, Double> averageRatings = allFeedback.stream()
                 .collect(Collectors.groupingBy(
@@ -359,5 +349,31 @@ public class PizzaShopService {
 
         averageRatings.forEach((pizza, rating) -> 
             System.out.printf("%s: %.1f stars\n", pizza, rating));
+    }
+
+    public void trackOrder(Scanner scanner) {
+        System.out.println("\n--- Track Order ---");
+        System.out.print("Enter Pizza Name to Track: ");
+        String pizzaName = scanner.next();
+
+        Pizza selectedPizza = userProfile.getFavoritePizzas().stream()
+                .filter(pizza -> pizza.getName().equalsIgnoreCase(pizzaName))
+                .findFirst()
+                .orElse(null);
+
+        if (selectedPizza != null) {
+            Order order = new Order(selectedPizza, "Delivery"); // Assuming delivery for tracking
+            OrderTracker orderTracker = new OrderTracker(order);
+            orderTracker.startTracking();
+            try {
+                Thread.sleep(5000); // Simulate tracking time
+            } catch (InterruptedException e) {
+                System.out.println("Tracking interrupted.");
+            }
+            // Display the status history
+            System.out.println("\nOrder Status History: " + orderTracker.getStatusHistory());
+        } else {
+            System.out.println("Pizza not found in favorites.");
+        }
     }
 }

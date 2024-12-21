@@ -15,7 +15,8 @@ public class PizzaShop {
             System.out.println("2. View Favorite Pizzas");
             System.out.println("3. View Loyalty Points");
             System.out.println("4. View Pizza Ratings");
-            System.out.println("5. Exit");
+            System.out.println("5. Track Order");
+            System.out.println("6. Exit");
 
             System.out.print("Choose an option: ");
             try {
@@ -26,7 +27,8 @@ public class PizzaShop {
                     case 2 -> service.viewFavoritePizzas();
                     case 3 -> service.viewLoyaltyPoints();
                     case 4 -> service.viewPizzaRatings();
-                    case 5 -> {
+                    case 5 -> service.trackOrder(scanner);
+                    case 6 -> {
                         exit = true;
                         System.out.println("Thank you for visiting the Pizza Shop!");
                     }

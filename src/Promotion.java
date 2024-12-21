@@ -41,7 +41,6 @@ public class Promotion {
     }
 
     public PromotionStrategy getPromotionStrategy() {
-        
         return new PercentageDiscountPromotion(); 
     }
 

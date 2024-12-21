@@ -15,13 +15,11 @@ public class OrderTracker {
         new Thread(() -> {
             try {
                 updateStatus("Preparing");
-                Thread.sleep(1000); 
+                Thread.sleep(10000); 
                 updateStatus("Packing");
-                Thread.sleep(1000); 
-
+                Thread.sleep(5000); 
                 updateStatus("On the way");
-                Thread.sleep(1000); 
-
+                Thread.sleep(10000); 
                 updateStatus("Rider reached, please collect it");
                 System.out.println("Press Enter to continue...");
             } catch (InterruptedException e) {
