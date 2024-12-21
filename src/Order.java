@@ -4,7 +4,7 @@ public class Order {
     private String status;
     private Feedback feedback;
     private double finalPrice;
-    private Promotion appliedPromotion;
+    private Promotion.PromotionStrategy promotionStrategy;
 
     public Order(Pizza pizza, String deliveryType) {
         this.pizza = pizza;
@@ -13,10 +13,13 @@ public class Order {
         this.finalPrice = calculateBasePrice(); 
     }
 
-    public void applyPromotion(Promotion promotion) {
-        if (promotion != null && promotion.isActive()) {
-            this.appliedPromotion = promotion;
-            this.finalPrice = finalPrice * (1 - promotion.getDiscountPercentage() / 100);
+    public void setPromotionStrategy(Promotion.PromotionStrategy promotionStrategy) {
+        this.promotionStrategy = promotionStrategy;
+    }
+
+    public void applyPromotion() {
+        if (promotionStrategy != null) {
+            this.finalPrice = promotionStrategy.applyPromotion(finalPrice);
         }
     }
 
@@ -47,8 +50,8 @@ public class Order {
     @Override
     public String toString() {
         String baseString = "Order [Pizza=" + pizza + ", DeliveryType=" + deliveryType + ", Status=" + status;
-        if (appliedPromotion != null) {
-            baseString += ", Promotion=" + appliedPromotion.getName();
+        if (promotionStrategy != null) {
+            baseString += ", Promotion=" + promotionStrategy.getClass().getSimpleName();
         }
         baseString += ", Final Price=" + String.format("%.2f", finalPrice) + "]";
         return baseString;

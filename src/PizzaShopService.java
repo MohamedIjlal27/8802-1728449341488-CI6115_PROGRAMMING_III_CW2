@@ -337,7 +337,7 @@ public class PizzaShopService {
         System.out.print("Select a promotion (0 for none): ");
         int choice = scanner.nextInt();
         if (choice > 0 && choice <= availablePromotions.size()) {
-            order.applyPromotion(availablePromotions.get(choice - 1));
+            order.setPromotionStrategy(availablePromotions.get(choice - 1).getPromotionStrategy());
             System.out.println("Promotion applied successfully!");
         }
     }
