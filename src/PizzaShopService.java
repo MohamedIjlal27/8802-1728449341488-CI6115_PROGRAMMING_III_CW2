@@ -366,14 +366,21 @@ public class PizzaShopService {
             OrderTracker orderTracker = new OrderTracker(order);
             orderTracker.startTracking();
             try {
-                Thread.sleep(5000); // Simulate tracking time
+                Thread.sleep(20000); // Simulate tracking time
             } catch (InterruptedException e) {
                 System.out.println("Tracking interrupted.");
             }
             // Display the status history
-            System.out.println("\nOrder Status History: " + orderTracker.getStatusHistory());
+            System.out.println("\nOrder Status History:");
+            orderTracker.getStatusHistory().forEach(status -> 
+                System.out.println("Notification: Your order status is now '" + status + "'."));
         } else {
             System.out.println("Pizza not found in favorites.");
         }
+
+        // Option to return to the menu
+        System.out.println("Press Enter to return to the menu...");
+        scanner.nextLine();
+        scanner.nextLine();
     }
 }

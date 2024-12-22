@@ -21,7 +21,6 @@ public class OrderTracker {
                 updateStatus("On the way");
                 Thread.sleep(10000); 
                 updateStatus("Rider reached, please collect it");
-                System.out.println("Press Enter to continue...");
             } catch (InterruptedException e) {
                 System.out.println("Order tracking interrupted.");
             }
@@ -31,11 +30,6 @@ public class OrderTracker {
     public void updateStatus(String newStatus) {
         order.updateStatus(newStatus);
         statusHistory.add(newStatus);
-        notifyUser(newStatus);
-    }
-
-    private void notifyUser(String status) {
-        System.out.println("Notification: Your order status is now '" + status + "'.");
     }
 
     public List<String> getStatusHistory() {
